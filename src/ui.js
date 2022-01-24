@@ -6,6 +6,8 @@ stopConditions[0]
 stopConditions[1]
     .addEventListener('change', () => document.querySelector('#iteration_number').disabled = false)
 
+stopConditions[0].checked = true
+
 const stopInput = document.querySelector('#iteration_number')
 stopInput.disabled = true
 stopInput.value = ''
@@ -24,3 +26,4 @@ neuronInput.disabled = true
 neuronInput.value = ''
 
 
+document.querySelector('input[name="transfer_function"]').checked = true

@@ -96,4 +96,11 @@ main {
     text-align: center;
     font-family:'Courier New', Courier, monospace;
     font-size: larger;
+    border-radius: 5px;
+    transition-duration: 250ms;
+}
+.upload_file:hover {
+    cursor: pointer;
+    background-color: rgb(212, 212, 212);
+    transition-duration: 250ms;
 }
