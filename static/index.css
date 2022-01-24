@@ -1,0 +1,99 @@
+body {
+    background-color: rgb(57, 57, 97);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    color: white;
+}
+
+main {
+    height: 514px;
+    width: 80vw;
+    background-color: rgb(235, 235, 235);
+    border-radius: 7px;
+    display: grid;
+    grid-template-areas: 
+        'train neuron tests'
+        'matrix matrix matrix';
+    grid-template-columns: 33% 34% 33%;
+    grid-template-rows: 50% 50%;
+}
+
+#train {
+    grid-area: train;
+    display: grid;
+    grid-template-areas: 
+        'train_file train_file'
+        'neuron_num transfer_fun';
+    grid-template-rows: 56% 44%;
+}
+#train_file {
+    grid-area: train_file;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#stop_condition {
+    padding-left: 5px;
+}
+#inout_number > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#neuron {
+    grid-area: neuron;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+#train_neuron {
+    grid-area: neuron_num;
+    padding-left: 5px;
+}
+#transfer_fun {
+    grid-area: transfer_fun;
+}
+
+#tests {
+    grid-area: tests;
+    display: grid;
+    grid-template-areas: 
+        'tests_file'
+        'start_button';
+}
+#tests_file {
+    grid-area: tests_file;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#start_button {
+    grid-area: start_button;
+}
+
+#matrix {
+    grid-area: matrix;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.upload_file {
+    background-color: whitesmoke;
+    height: 90%;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family:'Courier New', Courier, monospace;
+    font-size: larger;
+}

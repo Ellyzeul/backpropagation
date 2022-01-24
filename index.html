@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/index.css">
+    <title>Backpropagation</title>
+</head>
+<body>
+    <h1>Backpropagation</h1>
+    <main id="main">
+        <section id="train">
+            <div id="train_file">
+                <div id="upload_train" class="upload_file">Clique ou arraste um CSV para o treinamento</div>
+            </div>
+            <div id="stop_condition">
+                <div>
+                    <p>Condição de parada</p>
+                    <div><input type="radio" name="stop_condition" id="error" value="error"><label for="error">Erro</label></div>
+                    <div><input type="radio" name="stop_condition" id="iteration" value="iteration"><label for="iteration">Número de iterações</label></div>
+                </div>
+                <input type="number" id="iteration_number">
+            </div>
+            <div id="inout_number">
+                <div>
+                    <p>Neurônios de entrada</p>
+                    <div id="in_neuron">5</div>
+                </div>
+                <div>
+                    <p>Neurônios de saída</p>
+                    <div id="out_neuron">6</div>
+                </div>
+            </div>
+        </section>
+        <section id="neuron">
+            <div id="train_neuron">
+                <div>
+                    <p>Neurônios da camada oculta</p>
+                    <div><input type="radio" name="hidden_neuron_number" id="auto" value="auto"><label for="auto">Calculado</label></div>
+                    <div><input type="radio" name="hidden_neuron_number" id="input" value="input"><label for="input">Entrada do usuário</label></div>
+                </div>
+                <input type="number" id="user_neuron_number">
+            </div>
+            <div id="transfer_fun">
+                <p>Função de tranferência</p>
+                <div><input type="radio" name="transfer_function" id="logistic" value="logistic"><label for="logistic">Logística</label></div>
+                <div><input type="radio" name="transfer_function" id="tangent" value="tangent"><label for="input">Tangente hiperbólica</label></div>
+            </div>
+        </section>
+        <section id="tests">
+            <div id="tests_file">
+                <div id="upload_tests" class="upload_file">Clique ou arraste um CSV para os testes</div>
+            </div>
+            <div id="start_button">
+                <button>Iniciar treinamento</button>
+                <button>Iniciar testes</button>
+            </div>
+        </section>
+        <section id="matrix">
+
+        </section>
+    </main>
+    <script lang="javascript" src="src/ui.js"></script>
+</body>
+</html>
