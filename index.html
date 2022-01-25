@@ -12,8 +12,8 @@
     <main id="main">
         <section id="train">
             <div id="train_file">
-                <div id="upload_train" class="upload_file" onclick="document.querySelector('#upload_train_input').click()">Clique ou arraste um CSV para o treinamento</div>
-                <input type="file" id="upload_train_input" style="display: none;">
+                <div id="upload_train" class="upload_file" onclick="document.querySelector('#upload_train_input').click()" ondragover="allowDrop(event)" ondrop="drop(event, 'train_data')">Clique ou arraste um CSV para o treinamento</div>
+                <input type="file" id="upload_train_input" style="display: none;" onchange="fileInputChange('upload_train_input')">
             </div>
             <div id="stop_condition">
                 <div>
@@ -26,11 +26,11 @@
             <div id="inout_number">
                 <div>
                     <p>Neurônios de entrada</p>
-                    <div id="in_neuron">5</div>
+                    <div id="in_neuron">0</div>
                 </div>
                 <div>
                     <p>Neurônios de saída</p>
-                    <div id="out_neuron">6</div>
+                    <div id="out_neuron">0</div>
                 </div>
             </div>
         </section>
@@ -51,18 +51,34 @@
         </section>
         <section id="tests">
             <div id="tests_file">
-                <div id="upload_tests" class="upload_file" onclick="document.querySelector('#upload_tests_input').click()">Clique ou arraste um CSV para os testes</div>
-                <input type="file" id="upload_tests_input" style="display: none;">
+                <div id="upload_tests" class="upload_file" onclick="document.querySelector('#upload_tests_input').click()" ondragover="allowDrop(event)" ondrop="drop(event, 'tests_data')">Clique ou arraste um CSV para os testes</div>
+                <input type="file" id="upload_tests_input" style="display: none;" onchange="fileInputChange('upload_tests_input')">
             </div>
             <div id="start_button">
-                <button>Iniciar treinamento</button>
-                <button>Iniciar testes</button>
+                <button id="start_train">Iniciar treinamento</button>
+                <button id="start_tests">Iniciar testes</button>
             </div>
         </section>
         <section id="matrix">
-
+            <table id="confusion_matrix">
+                <thead>
+                    <tr>
+                        <th>
+                            Matriz de confusão
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Vazia
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </section>
     </main>
-    <script lang="javascript" src="src/ui.js"></script>
+    <script lang="javascript" src="src/ui/radio_groups.js"></script>
+    <script lang="javascript" src="src/ui/file_handler.js"></script>
 </body>
 </html>
