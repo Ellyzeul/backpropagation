@@ -13,7 +13,7 @@
     <main id="main">
         <section id="train">
             <div id="train_file">
-                <div id="upload_train" class="upload_file" onclick="document.querySelector('#upload_train_input').click()" ondragover="allowDrop(event)" ondrop="drop(event, 'train_data')">Clique ou arraste um CSV para o treinamento</div>
+                <div id="upload_train" class="upload_file" onclick="document.querySelector('#upload_train_input').click()" ondragover="allowDrop(event)" ondrop="drop(event, 'upload_train_input')">Clique ou arraste um CSV para o treinamento</div>
                 <input type="file" id="upload_train_input" style="display: none;" onchange="fileInputChange('upload_train_input')">
             </div>
             <div id="stop_condition">
@@ -52,7 +52,7 @@
         </section>
         <section id="tests">
             <div id="tests_file">
-                <div id="upload_tests" class="upload_file" onclick="document.querySelector('#upload_tests_input').click()" ondragover="allowDrop(event)" ondrop="drop(event, 'tests_data')">Clique ou arraste um CSV para os testes</div>
+                <div id="upload_tests" class="upload_file" onclick="document.querySelector('#upload_tests_input').click()" ondragover="allowDrop(event)" ondrop="drop(event, 'upload_tests_input')">Clique ou arraste um CSV para os testes</div>
                 <input type="file" id="upload_tests_input" style="display: none;" onchange="fileInputChange('upload_tests_input')">
             </div>
             <div id="start_button">
