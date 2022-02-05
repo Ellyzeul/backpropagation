@@ -18,49 +18,14 @@ class Backpropagation {
         this.#outNeurons = outNeurons
         this.#layers = layers
         this.#neuronsPerLayer = neuronsPerLayer
-        let layerName
-        let nextLayerName
+        const inConnections = inNeurons*neuronsPerLayer
+        const totalConnections =
+            inConnections + 
+            (layers-1)*Math.pow(neuronsPerLayer,2) + 
+            neuronsPerLayer*outNeurons
 
-        for(let i = 0; i < neuronsPerLayer; i++) {
-            for (let j = 0; j < inNeurons; j++) {
-                this.#connections.push(
-                    {
-                        from: `in${j}`,
-                        to: `A${i}`,
-                        in: true
-                    }
-                )
-            }
-        }
-
-        for(let i = 0; i < layers-1; i++) {
-            layerName = this.#neuronLayerName(i)
-            nextLayerName = this.#neuronLayerName(i+1)
-            for (let j = 0; j < neuronsPerLayer; j++) {
-                for(let k = 0; k < neuronsPerLayer; k++) {
-                    this.#connections.push(
-                        {
-                            from: `${layerName}${k}`,
-                            to: `${nextLayerName}${j}`,
-                            weight: 0.1
-                        }
-                    )
-                }
-            }
-        }
-
-        layerName = this.#neuronLayerName(layers-1)
-        for(let i = 0; i < outNeurons; i++) {
-            for (let j = 0; j < neuronsPerLayer; j++) {
-                this.#connections.push(
-                    {
-                        from: `${layerName}${j}`,
-                        to: `out${i}`,
-                        weight: 0.1,
-                        out: true
-                    }
-                )
-            }
+        for(let i = 0; i < totalConnections; i++) {
+            this.#connections.push(i < inConnections ? 1 : 0.1)
         }
     }
 
@@ -68,13 +33,13 @@ class Backpropagation {
         type === "linear" ? (x) => (x)
       : type === "logistic" ? (x) => (1/(1+Math.exp(-x)))
       : type === "hyperbolic tangent" ? (x) => ((1-Math.exp(-2*x))/(1+Math.exp(-2*x)))
-      : null
+      : (() => {throw "Unexpected tranfer function type..."})()
 
     #transferDerivatives = type => 
         type === "linear" ? (x) => (1)
       : type === "logistic" ? (x) => (Math.exp(-x)/Math.pow((1+Math.exp(-x)), 2))
       : type === "hyperbolic tangent" ? (x) => (1-Math.pow(this.#transferFunctions("hyperbolic tangent")(x), 2))
-      : null
+      : (() => {throw "Unexpected derivative type..."})()
 
     #neuronLayerName = code => {
         let name = ""
@@ -97,12 +62,12 @@ class Backpropagation {
             final: []
         }
         const weights = []
+        let lastNet
         let l = 0
         for(let i = 0; i < this.#layers; i++) {
             for(let j = 0; j < this.#neuronsPerLayer; j++) {
                 for(let k = 0; k < (i === 0 ? this.#inNeurons : this.#neuronsPerLayer); k++, l++) {
-                    console.log(this.#connections[l])
-                    weights.push(this.#connections[l].weight||1)
+                    weights.push(this.#connections[l])
                 }
                 layerNets.push(this.#net(inputs, weights))
                 weights.length = 0
@@ -116,14 +81,14 @@ class Backpropagation {
         }
 
         for(let i = 0; i < this.#outNeurons; i++) {
-            for(let j = 0; j < this.#neuronsPerLayer; j++) {
-                weights.push(this.#connections[l++].weight)
+            for(let j = 0; j < this.#neuronsPerLayer; j++, l++) {
+                weights.push(this.#connections[l])
             }
             layerNets.push(this.#net(inputs, weights))
             weights.length = 0
         }
         output.layerNets.push([...layerNets])
-        layerNets.forEach(net => output.final.push(this.#transfer(net)))
+        output.layerNets[output.layerNets.length-1].forEach(net => output.final.push(this.#transfer(net)))
 
         return output
     }
@@ -156,7 +121,7 @@ class Backpropagation {
 
                 resultsError = iteration.final
                     .map((result, idx) => 
-                        ((idx === set[i][this.#inNeurons] ? 1 : 0) - result + startOn) * (iteration.layerNets[iteration.layerNets.length-1][idx])
+                        ((idx === set[i][this.#inNeurons] ? 1 : 0) - result + startOn) * this.#derivative(iteration.layerNets[iteration.layerNets.length-1][idx])
                     )
                 
                 this.#backpropagate(iteration.layerNets, resultsError)
@@ -166,11 +131,16 @@ class Backpropagation {
 
     #backpropagate = (results, outputError) => {
         let l = this.#connections.length-1
-        console.log(results)
+        const originalWeights = [...this.#connections]
+        const errors = [...outputError]
 
         for(let i = this.#outNeurons-1; i >= 0; i--) {
             for(let j = this.#neuronsPerLayer-1; j >= 0; j--, l--) {
-                this.#connections[l].weight *= this.#derivative()*results[this.#layers][j]
+                this.#connections[l] *=
+                    (
+                        this.#derivative(results[i][j])*results[this.#layers][j] *
+                        errors.map()
+                    )
             }
         }
 
